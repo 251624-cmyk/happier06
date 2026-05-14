@@ -12,6 +12,7 @@
   ></script>
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -23,7 +24,7 @@
       width: 100%;
       height: 100vh;
       overflow: hidden;
-      background-color: #f5f7fb;
+      background-color: #f4f6fb;
     }
 
     /* 전체 레이아웃 */
@@ -42,11 +43,10 @@
       flex-direction: column;
     }
 
-    /* 상단 헤더 */
+    /* 헤더 */
     .header {
-      padding: 22px;
-      background: linear-gradient(135deg, #ffe45c, #ffb800);
-      color: #222;
+      padding: 24px;
+      background: linear-gradient(135deg, #ffe45c, #ffb700);
     }
 
     .header h1 {
@@ -56,10 +56,10 @@
 
     .header p {
       font-size: 14px;
-      opacity: 0.8;
+      color: #444;
     }
 
-    /* 검색창 */
+    /* 검색 영역 */
     .search-area {
       padding: 18px;
       border-bottom: 1px solid #eee;
@@ -89,38 +89,34 @@
       font-weight: bold;
     }
 
-    /* 추천 카드 */
-    .recommend-section {
+    /* 추천 카테고리 */
+    .category-box {
       padding: 18px;
       border-bottom: 1px solid #eee;
     }
 
-    .section-title {
+    .category-title {
       font-size: 17px;
       font-weight: bold;
       margin-bottom: 14px;
     }
 
-    .recommend-grid {
+    .category-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .recommend-card {
+    .category-card {
       padding: 16px;
       border-radius: 16px;
+      color: white;
       cursor: pointer;
       transition: 0.2s;
-      color: white;
       font-weight: bold;
-      min-height: 90px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
-    .recommend-card:hover {
+    .category-card:hover {
       transform: scale(1.03);
     }
 
@@ -129,37 +125,62 @@
     }
 
     .cafe {
-      background: linear-gradient(135deg, #9c6b3d, #6a3f1c);
+      background: linear-gradient(135deg, #8b5e34, #5e381b);
     }
 
     .pc {
-      background: linear-gradient(135deg, #4b7cff, #2155ff);
+      background: linear-gradient(135deg, #4d7cff, #1d52ff);
     }
 
     .karaoke {
-      background: linear-gradient(135deg, #ff6ad5, #d938b0);
+      background: linear-gradient(135deg, #ff71d4, #d935b3);
     }
 
     .food {
-      background: linear-gradient(135deg, #ff9f43, #ff6b00);
+      background: linear-gradient(135deg, #ff9f43, #ff6600);
     }
 
     .park {
-      background: linear-gradient(135deg, #4cd964, #1ea83a);
+      background: linear-gradient(135deg, #4cd964, #20a63c);
     }
 
-    .card-emoji {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    /* 상태 표시 */
-    .status-box {
-      padding: 12px 18px;
-      font-size: 14px;
-      color: #666;
+    /* 거리 기준 설명 */
+    .legend-box {
+      padding: 16px 18px;
       border-bottom: 1px solid #eee;
       background-color: #fafafa;
+    }
+
+    .legend-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .red {
+      background-color: #ff3b30;
+    }
+
+    .yellow {
+      background-color: #ffcc00;
+    }
+
+    .blue {
+      background-color: #007aff;
     }
 
     /* 결과 리스트 */
@@ -171,17 +192,17 @@
 
     .result-item {
       background-color: white;
+      border: 1px solid #eee;
       border-radius: 16px;
       padding: 18px;
       margin-bottom: 12px;
       cursor: pointer;
       transition: 0.2s;
-      border: 1px solid #eee;
     }
 
     .result-item:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     .place-name {
@@ -190,13 +211,10 @@
       margin-bottom: 8px;
     }
 
-    .place-category {
-      display: inline-block;
-      background-color: #ffe45c;
-      padding: 5px 10px;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 10px;
+    .place-distance {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
 
     .place-address {
@@ -204,13 +222,6 @@
       color: #666;
       margin-bottom: 8px;
       line-height: 1.5;
-    }
-
-    .place-distance {
-      font-size: 13px;
-      color: #2155ff;
-      font-weight: bold;
-      margin-bottom: 6px;
     }
 
     .place-phone {
@@ -229,16 +240,16 @@
       height: 100%;
     }
 
-    /* 지도 위 배지 */
-    .map-badge {
+    /* 지도 상단 상태 */
+    .map-status {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 10;
       background-color: white;
-      padding: 12px 18px;
+      padding: 14px 18px;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       font-weight: bold;
     }
 
@@ -258,10 +269,11 @@
         height: 50%;
       }
 
-      .recommend-grid {
+      .category-grid {
         grid-template-columns: 1fr;
       }
     }
+
   </style>
 </head>
 
@@ -275,7 +287,7 @@
       <!-- 헤더 -->
       <div class="header">
         <h1>🎉 Teen Play Map</h1>
-        <p>십대들이 놀기 좋은 장소를 찾아보세요!</p>
+        <p>가까운 놀거리를 거리별 색상으로 확인하세요!</p>
       </div>
 
       <!-- 검색창 -->
@@ -286,7 +298,7 @@
           <input
             type="text"
             id="keyword"
-            placeholder="예: 영화관, 떡볶이, 보드게임카페"
+            placeholder="예: 영화관, 카페, 떡볶이"
           />
 
           <button type="submit">
@@ -297,64 +309,80 @@
 
       </div>
 
-      <!-- 추천 카드 -->
-      <div class="recommend-section">
+      <!-- 카테고리 -->
+      <div class="category-box">
 
-        <div class="section-title">
-          🔥 인기 놀거리
+        <div class="category-title">
+          🔥 추천 놀거리
         </div>
 
-        <div class="recommend-grid">
+        <div class="category-grid">
 
-          <div class="recommend-card movie" data-keyword="영화관">
-            <div class="card-emoji">🎬</div>
-            영화관
+          <div class="category-card movie" data-keyword="영화관">
+            🎬 영화관
           </div>
 
-          <div class="recommend-card cafe" data-keyword="카페">
-            <div class="card-emoji">☕</div>
-            감성카페
+          <div class="category-card cafe" data-keyword="카페">
+            ☕ 카페
           </div>
 
-          <div class="recommend-card pc" data-keyword="PC방">
-            <div class="card-emoji">🎮</div>
-            PC방
+          <div class="category-card pc" data-keyword="PC방">
+            🎮 PC방
           </div>
 
-          <div class="recommend-card karaoke" data-keyword="노래방">
-            <div class="card-emoji">🎤</div>
-            노래방
+          <div class="category-card karaoke" data-keyword="노래방">
+            🎤 노래방
           </div>
 
-          <div class="recommend-card food" data-keyword="떡볶이">
-            <div class="card-emoji">🍜</div>
-            떡볶이
+          <div class="category-card food" data-keyword="떡볶이">
+            🍜 떡볶이
           </div>
 
-          <div class="recommend-card park" data-keyword="공원">
-            <div class="card-emoji">🌳</div>
-            공원
+          <div class="category-card park" data-keyword="공원">
+            🌳 공원
           </div>
 
         </div>
 
       </div>
 
-      <!-- 상태 표시 -->
-      <div class="status-box" id="statusBox">
-        📍 현재 위치 기준으로 장소를 찾는 중...
+      <!-- 거리 색상 설명 -->
+      <div class="legend-box">
+
+        <div class="legend-title">
+          🚶 걸어가는 거리 기준
+        </div>
+
+        <div class="legend-item">
+          <div class="legend-color red"></div>
+          가까움 (10분 이내)
+        </div>
+
+        <div class="legend-item">
+          <div class="legend-color yellow"></div>
+          적당함 (10~25분)
+        </div>
+
+        <div class="legend-item">
+          <div class="legend-color blue"></div>
+          멀음 (25분 이상)
+        </div>
+
       </div>
 
       <!-- 결과 리스트 -->
-      <div class="result-list" id="resultList"></div>
+      <div
+        class="result-list"
+        id="resultList"
+      ></div>
 
     </div>
 
     <!-- 지도 -->
     <div class="map-area">
 
-      <div class="map-badge">
-        📍 주변 놀거리 탐색중
+      <div class="map-status">
+        📍 현재 위치 기반 추천
       </div>
 
       <div id="map"></div>
@@ -369,12 +397,12 @@
     let placeService;
     let infoWindow;
 
-    // 검색 결과 마커 저장
-    let markers = [];
-
     // 현재 위치 저장
     let currentLatitude;
     let currentLongitude;
+
+    // 마커 배열
+    let markers = [];
 
     // 카카오맵 로드 후 실행
     kakao.maps.load(() => {
@@ -384,8 +412,11 @@
         // 위치 허용 성공
         (position) => {
 
-          currentLatitude = position.coords.latitude;
-          currentLongitude = position.coords.longitude;
+          currentLatitude =
+            position.coords.latitude;
+
+          currentLongitude =
+            position.coords.longitude;
 
           initializeMap(
             currentLatitude,
@@ -417,36 +448,37 @@
 
       const mapOption = {
 
-        center: new kakao.maps.LatLng(lat, lng),
+        center:
+          new kakao.maps.LatLng(lat, lng),
 
-        // 지도 확대 레벨
         level: 5
       };
 
       // 지도 생성
-      map = new kakao.maps.Map(
-        mapContainer,
-        mapOption
-      );
+      map =
+        new kakao.maps.Map(
+          mapContainer,
+          mapOption
+        );
 
-      // 장소 검색 객체 생성
+      // 장소 검색 객체
       placeService =
         new kakao.maps.services.Places();
 
-      // 인포윈도우 생성
+      // 인포윈도우
       infoWindow =
         new kakao.maps.InfoWindow({
           zIndex: 1
         });
 
-      // 현재 위치 마커 표시
+      // 현재 위치 표시
       showCurrentLocation(lat, lng);
 
       // 이벤트 연결
       connectSearchEvent();
-      connectRecommendCards();
+      connectCategoryEvent();
 
-      // 시작하자마자 자동 추천
+      // 시작 시 자동 검색
       searchPlace("영화관");
     }
 
@@ -484,7 +516,9 @@
     function connectSearchEvent() {
 
       const searchForm =
-        document.getElementById("searchForm");
+        document.getElementById(
+          "searchForm"
+        );
 
       searchForm.addEventListener(
         "submit",
@@ -509,23 +543,26 @@
       );
     }
 
-    // 추천 카드 이벤트 연결
-    function connectRecommendCards() {
+    // 카테고리 클릭 이벤트
+    function connectCategoryEvent() {
 
       const cards =
         document.querySelectorAll(
-          ".recommend-card"
+          ".category-card"
         );
 
       cards.forEach((card) => {
 
-        card.addEventListener("click", () => {
+        card.addEventListener(
+          "click",
+          () => {
 
-          const keyword =
-            card.dataset.keyword;
+            const keyword =
+              card.dataset.keyword;
 
-          searchPlace(keyword);
-        });
+            searchPlace(keyword);
+          }
+        );
 
       });
     }
@@ -533,22 +570,18 @@
     // 장소 검색
     function searchPlace(keyword) {
 
-      // 상태 문구 변경
-      document.getElementById(
-        "statusBox"
-      ).innerText =
-        `🔎 "${keyword}" 검색 중...`;
-
       const searchOption = {
 
-        // 현재 위치 중심 검색
         location:
           new kakao.maps.LatLng(
             currentLatitude,
             currentLongitude
           ),
 
-        radius: 5000
+        radius: 5000,
+
+        sort:
+          kakao.maps.services.SortBy.DISTANCE
       };
 
       placeService.keywordSearch(
@@ -573,17 +606,20 @@
         return;
       }
 
-      // 기존 마커 제거
       removeMarkers();
 
-      // 리스트 출력
+      // 가까운 순 정렬
+      data.sort((a, b) => {
+
+        return a.distance - b.distance;
+      });
+
       displayResultList(data);
 
-      // 지도 범위 설정
       const bounds =
         new kakao.maps.LatLngBounds();
 
-      data.forEach((place) => {
+      data.forEach((place, index) => {
 
         const position =
           new kakao.maps.LatLng(
@@ -591,18 +627,47 @@
             place.x
           );
 
-        // 마커 생성
+        // 도보 시간 계산
+        const walkingMinute =
+          Math.round(place.distance / 67);
+
+        // 거리 기준 색상 결정
+        let markerColor;
+
+        // 10분 이내
+        if (walkingMinute <= 10) {
+
+          markerColor = "#ff3b30";
+        }
+
+        // 10~25분
+        else if (walkingMinute <= 25) {
+
+          markerColor = "#ffcc00";
+        }
+
+        // 25분 이상
+        else {
+
+          markerColor = "#007aff";
+        }
+
+        // 커스텀 마커 생성
+        const markerImage =
+          createColorMarker(markerColor);
+
         const marker =
           new kakao.maps.Marker({
 
             map: map,
-            position: position
+
+            position: position,
+
+            image: markerImage
           });
 
-        // 마커 저장
         markers.push(marker);
 
-        // 지도 범위 추가
         bounds.extend(position);
 
         // 마커 클릭 이벤트
@@ -613,21 +678,48 @@
 
             showInfoWindow(
               place,
-              marker
+              marker,
+              walkingMinute
             );
           }
         );
 
       });
 
-      // 검색 결과 위치로 이동
       map.setBounds(bounds);
+    }
 
-      // 상태 문구 변경
-      document.getElementById(
-        "statusBox"
-      ).innerText =
-        `✨ ${data.length}개의 장소를 찾았어요!`;
+    // 색상 마커 생성
+    function createColorMarker(color) {
+
+      const svgMarker = `
+        <svg xmlns="http://www.w3.org/2000/svg"
+          width="36"
+          height="36"
+          viewBox="0 0 36 36">
+
+          <circle
+            cx="18"
+            cy="18"
+            r="12"
+            fill="${color}"
+            stroke="white"
+            stroke-width="4"
+          />
+
+        </svg>
+      `;
+
+      const markerUrl =
+        "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svgMarker);
+
+      return new kakao.maps.MarkerImage(
+
+        markerUrl,
+
+        new kakao.maps.Size(36, 36)
+      );
     }
 
     // 결과 리스트 출력
@@ -643,20 +735,38 @@
       places.forEach(
         (place, index) => {
 
+          // 도보 시간 계산
+          const walkingMinute =
+            Math.round(place.distance / 67);
+
+          // 거리 텍스트
+          let distanceText;
+
+          if (walkingMinute <= 10) {
+
+            distanceText =
+              "🔴 가까움";
+          }
+
+          else if (
+            walkingMinute <= 25
+          ) {
+
+            distanceText =
+              "🟡 적당함";
+          }
+
+          else {
+
+            distanceText =
+              "🔵 멀음";
+          }
+
           const item =
             document.createElement("div");
 
           item.className =
             "result-item";
-
-          // 거리 계산
-          const distance =
-            calculateDistance(
-              currentLatitude,
-              currentLongitude,
-              place.y,
-              place.x
-            );
 
           item.innerHTML = `
 
@@ -664,16 +774,13 @@
               ${place.place_name}
             </div>
 
-            <div class="place-category">
-              ${place.category_name}
-            </div>
-
             <div class="place-distance">
-              📍 현재 위치에서 ${distance}
+              ${distanceText}
+              · 도보 약 ${walkingMinute}분
             </div>
 
             <div class="place-address">
-              ${place.road_address_name || place.address_name}
+              📍 ${place.road_address_name || place.address_name}
             </div>
 
             <div class="place-phone">
@@ -693,16 +800,16 @@
                   place.x
                 );
 
-              // 지도 이동
-              map.setCenter(movePosition);
+              map.setCenter(
+                movePosition
+              );
 
-              // 확대
               map.setLevel(3);
 
-              // 인포윈도우 표시
               showInfoWindow(
                 place,
-                markers[index]
+                markers[index],
+                walkingMinute
               );
             }
           );
@@ -715,7 +822,8 @@
     // 인포윈도우 표시
     function showInfoWindow(
       place,
-      marker
+      marker,
+      walkingMinute
     ) {
 
       infoWindow.setContent(`
@@ -735,17 +843,17 @@
           </div>
 
           <div style="
-            font-size:13px;
-            color:#555;
+            font-size:14px;
+            margin-bottom:8px;
           ">
-            📍 ${place.road_address_name || place.address_name}
+            🚶 도보 약 ${walkingMinute}분
           </div>
 
           <div style="
             font-size:13px;
-            margin-top:6px;
+            color:#555;
           ">
-            ☎ ${place.phone || "전화번호 없음"}
+            📍 ${place.road_address_name || place.address_name}
           </div>
 
         </div>
@@ -753,64 +861,6 @@
       `);
 
       infoWindow.open(map, marker);
-    }
-
-    // 거리 계산 함수
-    function calculateDistance(
-      lat1,
-      lng1,
-      lat2,
-      lng2
-    ) {
-
-      const earthRadius = 6371;
-
-      const latitudeDiff =
-        degreeToRadian(lat2 - lat1);
-
-      const longitudeDiff =
-        degreeToRadian(lng2 - lng1);
-
-      const a =
-        Math.sin(latitudeDiff / 2) *
-        Math.sin(latitudeDiff / 2) +
-
-        Math.cos(
-          degreeToRadian(lat1)
-        ) *
-
-        Math.cos(
-          degreeToRadian(lat2)
-        ) *
-
-        Math.sin(longitudeDiff / 2) *
-        Math.sin(longitudeDiff / 2);
-
-      const c =
-        2 * Math.atan2(
-          Math.sqrt(a),
-          Math.sqrt(1 - a)
-        );
-
-      const distance =
-        earthRadius * c;
-
-      // 1km 이상이면 km 표시
-      if (distance >= 1) {
-
-        return distance.toFixed(1) + "km";
-      }
-
-      // 1km 미만이면 m 표시
-      return Math.round(distance * 1000) + "m";
-    }
-
-    // 각도 → 라디안 변환
-    function degreeToRadian(degree) {
-
-      return degree * (
-        Math.PI / 180
-      );
     }
 
     // 기존 마커 제거
